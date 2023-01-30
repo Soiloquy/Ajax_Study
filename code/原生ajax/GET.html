@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajax GET请求</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .big-box {
+        width: 120px;
+        height: 120px;
+        margin: 0 auto;
+    }
+
+    button {
+        margin-left: 8px;
+    }
+
+    #result {
+        width: 100px;
+        height: 100px;
+        border: 1px solid #ccc;
+    }
+</style>
+
+<body>
+    <div class="big-box">
+        <button>点击发送请求</button>
+        <div id="result"></div>
+    </div>
+</body>
+<script>
+    var btu = document.querySelector('button');
+    var div = document.querySelector('#result');
+    //绑定对象
+    btu.addEventListener('click', () => {
+        //1.创建对象
+        const xhr = new XMLHttpRequest();
+        //2.初始化 设置请求方法和url
+        xhr.open('GET', 'http://127.0.0.1:8000/server?a=100&b=200');//问号后面跟参数，多个参数用&连接
+        //3.发送
+        xhr.send();
+        //4.事件绑定 处理服务端返回的结果
+        xhr.onreadystatechange = function () {
+            //判断服务端返回了所有结果
+            if (xhr.readyState === 4) {
+                //判断响应状态码
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    div.innerHTML = xhr.response;
+                    //xhr.status状态码
+                    //xhr.statusText状态字符串
+                    // xhr.getAllResponseHeaders();所以响应头
+                    //xhr.response响应体
+                }
+            }
+        }
+    })
+</script>
+
+</html>

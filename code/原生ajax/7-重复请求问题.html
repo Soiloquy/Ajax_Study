@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7-重复请求问题</title>
+</head>
+
+<body>
+    <button>发送请求</button>
+    <button>取消请求</button>
+</body>
+<script>
+    const btu1 = document.querySelectorAll('button')[0];
+    const btu2 = document.querySelectorAll('button')[1];
+    let xhr = null;
+    // 创建标识变量
+    var flag = false;
+    btu1.addEventListener('click', () => {
+        if (flag) {
+            xhr.abort();//如果正在发送则取消该请求
+        }
+        xhr = new XMLHttpRequest();
+        flag = true;
+        xhr.open('GET', 'http://127.0.0.1:8000/delay?t=' + Date.now());
+        xhr.send();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                flag = false;
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    alert(xhr.response);
+                }
+            }
+        }
+    })
+    //方法 abort
+    btu2.addEventListener('click', () => {
+        xhr.abort();
+    })
+    console.log(btu1);
+</script>
+
+</html>

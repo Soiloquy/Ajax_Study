@@ -8,6 +8,7 @@ const app = express();
 //3.创建路由规则
 //request是对请求报文的封装
 //response 是对响应报文的封装
+
 //get请求
 app.get('/server', (request, response) => {
     //设置响应头 设置允许跨域
@@ -17,6 +18,7 @@ app.get('/server', (request, response) => {
     //设置响应体
     response.send('HELLO AJAX');
 });
+
 //post请求  all可接收任何类型的请求
 app.post('/server', (request, response) => {
     //设置响应头 设置允许跨域
@@ -26,6 +28,7 @@ app.post('/server', (request, response) => {
     //设置响应体
     response.send('HELLO AJAX');
 });
+
 //json 响应
 app.get('/json-server', (request, response) => {
     //设置响应头 设置允许跨域
@@ -41,6 +44,23 @@ app.get('/json-server', (request, response) => {
     let str = JSON.stringify(data);
     //设置响应体 只能传字符串
     response.send(str);
+});
+
+//IE缓存问题
+app.get('/ie-server', (request, response) => {
+    //设置响应头 设置允许跨域
+    response.setHeader('Access-Control-Allow-Origin', '*');
+    //设置响应体
+    response.send('HELLO AJAX-IE3');
+});
+//请求超时与网路异常
+app.get('/delay', (request, response) => {
+    //设置响应头 设置允许跨域
+    response.setHeader('Access-Control-Allow-Origin', '*');
+    //设置延迟
+    setTimeout(() => {
+        response.send('HELLO AJAX-IE3');
+    }, 3000);
 });
 //4.监听端口启动服务
 app.listen(8000, () => {

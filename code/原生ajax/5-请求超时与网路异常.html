@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IE缓存问题</title>
+    <title>请求超时与网路异常</title>
 </head>
 <style>
     * {
@@ -35,7 +35,16 @@
     const div = document.querySelector('#result');
     but.addEventListener('click', () => {
         const xhr = new XMLHttpRequest();
-        //AJAX解决IE缓存问题：加一个可变化的参数，比如时间戳
+        //超时设置2s
+        xhr.timeout = 2000;
+        //超时回调
+        xhr.ontimeout = function () {
+            div.innerHTML = '请求超时，请稍后重试'
+        }
+        // 网络异常提醒
+        xhr.onerror = function () {
+            div.innerHTML = '你的网络似乎有点问题';
+        }
         xhr.open('GET', 'http://127.0.0.1:8000/delay?t=' + Date.now());
         xhr.send();
         xhr.onreadystatechange = function () {

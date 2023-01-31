@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON响应</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    div {
+        width: 200px;
+        height: 200px;
+        border: 1px solid #ccc;
+        margin: 0 auto;
+    }
+</style>
+
+<body>
+    <div id="result"></div>
+</body>
+<script>
+    var div = document.querySelector('#result');
+    window.addEventListener('keydown', () => {
+        var xhr = new XMLHttpRequest();
+        //设置响应体数据的类型
+        xhr.responseType = 'json';
+        xhr.open('GET', 'http://127.0.0.1:8000/json-server');
+        xhr.send();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    // 手动对数据进行转换
+                    // let data = JSON.parse(xhr.response);
+                    // console.log(data);
+                    // div.innerHTML = data.name;
+                    //自动转换 要进行responseType设置
+                    console.log(xhr.response);
+                    div.innerHTML = xhr.response.name + xhr.response.age;
+                }
+            }
+        }
+    })
+</script>
+
+</html>

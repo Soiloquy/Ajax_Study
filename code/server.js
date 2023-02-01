@@ -53,15 +53,29 @@ app.get('/ie-server', (request, response) => {
     //设置响应体
     response.send('HELLO AJAX-IE3');
 });
+
 //请求超时与网路异常
-app.get('/delay', (request, response) => {
+app.all('/delay', (request, response) => {
     //设置响应头 设置允许跨域
     response.setHeader('Access-Control-Allow-Origin', '*');
+    response.setHeader('Access-Control-Allow-Headers', '*');
     //设置延迟
     setTimeout(() => {
-        response.send('HELLO AJAX-IE3');
-    }, 3000);
+        var datas = { name: 'Andy' };
+        response.send(JSON.stringify(datas));
+    }, 1000);
 });
+
+//jQuery服务
+app.all('/jq-server', (request, response) => {
+    //设置响应头 设置允许跨域
+    response.setHeader('Access-Control-Allow-Origin', '*');
+    //设置响应体
+    // response.send('HELLO AJAX-jQ');
+    const student = { name: 'Tom', age: 18 };
+    response.send(JSON.stringify(student));
+});
+
 //4.监听端口启动服务
 app.listen(8000, () => {
     console.log("服务已启动，8000端口监听中。。。");

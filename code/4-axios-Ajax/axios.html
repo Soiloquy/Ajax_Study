@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>axios 发送 Ajax请求</title>
+    <script crossorigin="anonymous" src="https://cdn.bootcdn.net/ajax/libs/axios/1.2.5/axios.min.js"></script>
+</head>
+
+<body>
+    <button>发送GET请求</button>
+    <button>发送POST请求</button>
+    <button>通用型方法Ajax</button>
+</body>
+<script>
+    var but = document.querySelectorAll('button');
+    axios.defaults.baseURL = 'http://127.0.0.1:8000';
+    but[0].addEventListener('click', () => {
+        axios.get('/axios-server', {
+            // url参数
+            params: {
+                a: 100,
+                b: 200
+            },
+            // 请求头信息
+            headers: {
+                name: 'O.O',
+                age: 1
+            }
+        }).then(value => {
+            console.log(value);
+        })
+    })
+    but[1].addEventListener('click', () => {
+        axios.post('/axios-server', {
+            w: 100,//请求体
+            h: 100
+        }, {
+            // url参数
+            params: {
+                a: 100,
+                b: 200
+            },
+            // 请求头信息
+            headers: {
+                name: 'O.O',
+                age: 1
+            },
+            data: {
+                firstName: 'Fred'
+            }
+        }).then(value => {
+            console.log(value);
+        })
+    })
+    but[2].onclick = function () {
+        axios({
+            method: 'POST',
+            url: '/axios-server',
+            params: {
+                n: 900,
+                m: 800
+            },
+            headers: {
+                p: 1111,
+                k: 2222
+            },
+            // 请求体参数
+            data: {
+                uersname: 'admi',
+                password: '123'
+            }
+        }).then(data => {
+            console.log(data);
+            // 响应状态码
+            console.log(data.status);
+            // 响应状态字符串
+            console.log(data.statusText);
+            // 响应头信息
+            console.log(data.headers);
+            // 响应体
+            console.log(data.data);
+        })
+    }
+</script>
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSONP实践</title>
+</head>
+<style>
+    input {
+        outline: none;
+    }
+</style>
+
+<body>
+    username: <input type="text" id="username">
+    <p></p>
+    <script>
+        const input = document.querySelector('input');
+        const p = document.querySelector('p');
+        function handle(data) {
+            input.style.border = '1px solid #f00';
+            p.innerHTML = data.msg;
+        }
+        input.addEventListener('click', () => {
+            let username = input.value;
+            // console.log(username);
+            const script = document.createElement('script');
+            script.src = 'http://127.0.0.1:8000/cheak-username';
+            document.body.appendChild(script);
+        })
+    </script>
+</body>
+
+</html>

@@ -87,6 +87,72 @@ app.all('/axios-server', (request, response) => {
     response.send(JSON.stringify(student));
 });
 
+//fetch服务
+app.all('/fetch-server', (request, response) => {
+    //设置响应头 设置允许跨域
+    response.setHeader('Access-Control-Allow-Origin', '*');
+    response.setHeader('Access-Control-Allow-Headers', '*');
+    //设置响应体
+    // response.send('HELLO AJAX-jQ');
+    const student = { name: 'Tom', age: 28 };
+    response.send(JSON.stringify(student));
+});
+
+//jsonp服务
+app.all('/jsonp-server', (request, response) => {
+    //设置响应头 设置允许跨域
+    response.setHeader('Access-Control-Allow-Origin', '*');
+    response.setHeader('Access-Control-Allow-Headers', '*');
+    //设置响应体
+    const data = {
+        name: 'Tom'
+    }
+    let str = JSON.stringify(data);
+    response.end(`handle(${str})`);
+});
+
+// 检测用户名是否存在
+app.all('/cheak-username', (request, response) => {
+    //设置响应头 设置允许跨域
+    response.setHeader('Access-Control-Allow-Origin', '*');
+    response.setHeader('Access-Control-Allow-Headers', '*');
+    //设置响应体
+    const data = {
+        name: 'Tom',
+        msg: '用户名已经存在'
+    }
+    let str = JSON.stringify(data);
+    response.end(`handle(${str})`);
+});
+
+// JSONP-jQ
+app.all('/jq-jsonp', (request, response) => {
+    //设置响应头 设置允许跨域
+    response.setHeader('Access-Control-Allow-Origin', '*');
+    response.setHeader('Access-Control-Allow-Headers', '*');
+    //设置响应体
+    const data = {
+        name: 'Tom',
+        local: 'XXX'
+    }
+    let str = JSON.stringify(data);
+    // 接收callback参数
+    let cb = request.query.callback;
+    response.end(`${cb}(${str})`);
+});
+
+//CORS响应
+app.all('/cors-server', (request, response) => {
+    //设置响应头 设置允许跨域
+    response.setHeader('Access-Control-Allow-Origin', '*');
+    response.setHeader('Access-Control-Allow-Headers', '*');
+    // 请求方法
+    response.setHeader('Access-Control-Allow-Method', '*');
+    //设置响应体
+    // response.send('HELLO AJAX-jQ');
+    const student = { name: 'Tom', age: 28 };
+    response.send(JSON.stringify(student));
+});
 //4.监听端口启动服务
 app.listen(8000, () => {
     console.log("服务已启动，8000端口监听中。。。");

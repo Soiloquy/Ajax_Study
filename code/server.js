@@ -1,3 +1,7 @@
+// http用来创建http服务
+let http = require("http");
+// fs全称是file system 文件系统，用来操作文件。
+let fs = require("fs");
 // 1.引入express
 const { request, response } = require('express');
 const express = require('express');
@@ -27,10 +31,14 @@ app.post('/server', (request, response) => {
     response.setHeader('Access-Control-Allow-Headers', '*');
     //设置响应体
     response.send('HELLO AJAX');
+    // 如果来的是POST方法，那么就获取传入的url参数
+    // 再调用fs的写文件函数把数据写入文件。
+    // decodeURI 函数解析中文
+    // substring的作用可看：https://www.runoob.com/jsref/jsref-substring.html;
 });
 
 //json 响应
-app.get('/json-server', (request, response) => {
+app.all('/json-server', (request, response) => {
     //设置响应头 设置允许跨域
     response.setHeader('Access-Control-Allow-Origin', '*');
     //响应头
@@ -38,9 +46,10 @@ app.get('/json-server', (request, response) => {
     // 响应一个数据
     const data = {
         name: 'nooooon',
-        age: '18',
-        sex: '男'
+        age: '19',
+        sex: '女'
     }
+    console.log(request);
     let str = JSON.stringify(data);
     //设置响应体 只能传字符串
     response.send(str);

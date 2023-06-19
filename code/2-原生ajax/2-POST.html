@@ -33,9 +33,9 @@
         //2.初始化 设置请求方法和url
         xhr.open('POST', 'http://127.0.0.1:8000/server');
         //设置请求头 第一个是头的名字 、第二个是头的值
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;charset=UTF-8');
         //3.发送
-        xhr.send();
+        xhr.send("username=1111" + "&password=aaaa");
         //判断响应状态码
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4) {
